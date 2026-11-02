@@ -1,1 +1,250 @@
+from pathlib import Path
+import re
+
+src = Path("/mnt/data/Dunia_Mobail_yang_Ajaib_Halaman_Utama_Final.html")
+html = src.read_text(encoding="utf-8")
+
+# Replace the entire flash-card section with a more visual, cheerful interactive version.
+new_section = r'''
+<section class="flash-section" id="cuba-teka">
+  <div class="floating-pop pop-a">✨</div>
+  <div class="floating-pop pop-b">🦋</div>
+  <div class="floating-pop pop-c">⭐</div>
+  <div class="floating-pop pop-d">🎨</div>
+
+  <div class="section-title">
+    <div class="mini-label">🔮 CABARAN PEMANASAN</div>
+    <h2>🃏 Cuba Teka!</h2>
+    <p>Lihat gambar dengan teliti! 🤫 Kemudian <b>hover pada kad</b> untuk membuka jawapan rahsia. Setiap kad akan berpusing dengan kejutan kecil! ✨</p>
+  </div>
+
+  <div class="flash-grid cheerful-flash-grid">
+    
+    <div class="flash flash-one">
+      <div class="pop-badge">👀 LIHAT SAYA!</div>
+      <div class="flash-inner">
+        <div class="face front">
+          <img class="real-mobile-photo" src="https://images.openai.com/static-rsc-4/HKx7FKIuEDfq6nQGtLuJBrbq_pDBVI2LJ75wyyaY7U54-dKMRa8nvLdzRpbWjeRSeAkqVAaCm3dK5_rc9aEWc0RLkhFII_enPpaWUvxVUsoeW4topTm5zIGbG0y8LFBSVXL7_razRSwg_mC4h2hQwwl6ZxGTbsCR3AkUYrkEVfkaFUOTI7uHy8bxlnGVkyez?purpose=fullsize" alt="Contoh mobail serangga berwarna-warni">
+          <div class="photo-caption">🔍 PETUNJUK #1</div>
+          <h3>Apakah nama karya gantungan yang menarik ini?</h3>
+          <span class="hover-hint">✨ Hover untuk jawapan!</span>
+        </div>
+        <div class="face back answer-one">
+          <div class="answer-icon">🎉</div>
+          <div class="answer-title">BETUL KE TEKAAN KAMU?</div>
+          <div class="big-answer">MOBAIL!</div>
+          <p>Mobail ialah karya yang mempunyai bentuk atau objek yang <b>digantung</b> dan boleh menghasilkan pergerakan yang menarik.</p>
+          <span class="tiny-star">✨ 🦋 ✨</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="flash flash-two">
+      <div class="pop-badge badge-two">🌬️ CUBA FIKIR!</div>
+      <div class="flash-inner">
+        <div class="face front">
+          <img class="real-mobile-photo" src="https://images.openai.com/static-rsc-4/Ry-i2juY_jNufo1TLrgzJgqhnp61jGAXG-NGSsXf3t6kry4VWD8LYXSJszVR2o61Bt-5JDIup2lk70bT5RQhxLEx1XoLaFglf4GScs0qhXVfYy5riwzs59hRfchN-bx_7352cdtAydD3LBPh3N-gr2bzdT48h_9dh_5cJkWFNWUuAVZtOKArtMn9y0xCI9p5?purpose=fullsize" alt="Contoh mobail yang tergantung">
+          <div class="photo-caption">🌬️ PETUNJUK #2</div>
+          <h3>Apa yang boleh menyebabkan bahagian mobail berayun?</h3>
+          <span class="hover-hint">✨ Hover untuk jawapan!</span>
+        </div>
+        <div class="face back answer-two">
+          <div class="answer-icon">🌬️</div>
+          <div class="answer-title">JAWAPANNYA IALAH...</div>
+          <div class="big-answer">TIUPAN UDARA!</div>
+          <p>Pergerakan udara boleh menyebabkan bentuk yang tergantung <b>bergerak dan berayun</b>.</p>
+          <span class="tiny-star">💨 ⭐ 💨</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="flash flash-three">
+      <div class="pop-badge badge-three">🧵 PERHATI BETUL-BETUL!</div>
+      <div class="flash-inner">
+        <div class="face front">
+          <img class="real-mobile-photo" src="https://images.openai.com/static-rsc-4/Mlkdckz89Q5I8MK25FzHTWjXcm7vHJspcdBoVbsvlgAgSZorTbzYSsYRtyhV8pfejo6QzOWX5RxjOx43ket1HOhJ1gxg_98UFrT9RKUxADbj4ykRRV1lEFw4rIeYWUljXbF7Po55V-YS5zikXhsbfWrXQeixOQEknalaNfa2szkFuGpxfFzDazaSZ3Fgmm25?purpose=fullsize" alt="Contoh struktur mobail">
+          <div class="photo-caption">🧵 PETUNJUK #3</div>
+          <h3>Apakah yang membantu objek mobail tergantung?</h3>
+          <span class="hover-hint">✨ Hover untuk jawapan!</span>
+        </div>
+        <div class="face back answer-three">
+          <div class="answer-icon">🧵</div>
+          <div class="answer-title">RAHSIA TERBONGKAR!</div>
+          <div class="big-answer">TALI ATAU BENANG!</div>
+          <p>Benang atau tali digunakan untuk <b>menggantungkan bentuk</b> pada struktur mobail.</p>
+          <span class="tiny-star">🪄 🦋 🪄</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="try-note">🏆 <b>Hebat!</b> Ini baru permulaan. Jom teruskan pengembaraan untuk mengenali mobail dengan lebih mendalam! ✨</div>
+</section>
+'''
+
+html = re.sub(r'<section class="flash-section".*?</section>\s*<section class="explore">', new_section + '\n<section class="explore">', html, flags=re.S)
+
+extra_css = r'''
+<style>
+/* ===== CUBA TEKA! – VISUAL + POP-UP EFFECT ===== */
+.flash-section{
+  position:relative;
+  overflow:hidden;
+  padding-top:95px;
+  padding-bottom:90px;
+  background:
+    radial-gradient(circle at 8% 20%, rgba(255,214,109,.42), transparent 13%),
+    radial-gradient(circle at 92% 25%, rgba(255,155,197,.28), transparent 16%),
+    linear-gradient(180deg,#eaf8ff 0%,#f4edff 100%);
+}
+.mini-label{
+  display:inline-block;
+  padding:9px 16px;
+  background:#fff;
+  border-radius:999px;
+  font-size:.78rem;
+  font-weight:700;
+  letter-spacing:1px;
+  color:#36509a;
+  box-shadow:0 10px 25px rgba(35,68,145,.13);
+  margin-bottom:12px;
+}
+.cheerful-flash-grid{position:relative;z-index:2}
+.flash{
+  height:410px;
+  perspective:1200px;
+  position:relative;
+  animation:cardEntrance .9s cubic-bezier(.2,.8,.2,1) both;
+}
+.flash-two{animation-delay:.18s}
+.flash-three{animation-delay:.36s}
+@keyframes cardEntrance{
+  from{opacity:0;transform:translateY(55px) scale(.82)}
+  65%{transform:translateY(-8px) scale(1.03)}
+  to{opacity:1;transform:translateY(0) scale(1)}
+}
+.flash-inner{
+  height:100%;
+  position:relative;
+  transform-style:preserve-3d;
+  transition:transform .9s cubic-bezier(.2,.75,.2,1);
+}
+.flash:hover .flash-inner{transform:rotateY(180deg)}
+.face{
+  border-radius:32px;
+  overflow:hidden;
+  border:5px solid #fff;
+  box-shadow:0 22px 45px rgba(30,56,123,.18);
+}
+.front{
+  background:#fff;
+  justify-content:flex-start;
+}
+.real-mobile-photo{
+  width:100%;
+  height:245px;
+  object-fit:cover;
+  display:block;
+  transition:transform .6s ease;
+}
+.flash:hover .real-mobile-photo{transform:scale(1.06)}
+.photo-caption{
+  position:absolute;
+  top:14px;
+  left:14px;
+  background:rgba(255,255,255,.92);
+  color:#23498e;
+  padding:7px 12px;
+  border-radius:999px;
+  font-size:.75rem;
+  font-weight:700;
+}
+.front h3{
+  margin:15px 18px 7px;
+  color:#21488f;
+  text-align:center;
+  line-height:1.3;
+}
+.hover-hint{
+  display:block;
+  margin:auto auto 15px;
+  color:#8a6bc3;
+  font-size:.78rem;
+  font-weight:700;
+  animation:pulseHint 1.8s ease-in-out infinite;
+}
+@keyframes pulseHint{50%{transform:scale(1.08);opacity:.65}}
+.back{
+  padding:27px 25px;
+  text-align:center;
+  justify-content:center;
+  align-items:center;
+  color:#24325b;
+}
+.answer-one{background:linear-gradient(135deg,#ffe172,#ffb3d1)}
+.answer-two{background:linear-gradient(135deg,#8fe2ff,#a69cff)}
+.answer-three{background:linear-gradient(135deg,#a9edb6,#ffe38c)}
+.answer-icon{font-size:3.6rem;animation:bounce 1.5s infinite}
+@keyframes bounce{50%{transform:translateY(-10px) rotate(8deg)}}
+.answer-title{font-size:.78rem;letter-spacing:1.4px;font-weight:700;margin:7px 0;color:#514d76}
+.big-answer{font-family:'Playfair Display',serif;font-size:2rem;font-weight:800;color:#243b78;line-height:1.1}
+.back p{line-height:1.55;margin:15px 0 8px;font-size:.98rem}
+.tiny-star{font-size:1.1rem}
+.pop-badge{
+  position:absolute;
+  z-index:5;
+  top:-15px;
+  left:15px;
+  padding:9px 14px;
+  border-radius:999px;
+  background:#ffd86f;
+  color:#544022;
+  font-size:.72rem;
+  font-weight:800;
+  box-shadow:0 8px 20px rgba(73,56,22,.18);
+  animation:badgePop 2.5s ease-in-out infinite;
+}
+.badge-two{background:#ffafd0;color:#713c57}
+.badge-three{background:#aee8ff;color:#245070}
+@keyframes badgePop{
+  50%{transform:translateY(-9px) rotate(-3deg) scale(1.04)}
+}
+.floating-pop{
+  position:absolute;
+  z-index:1;
+  font-size:2.1rem;
+  filter:drop-shadow(0 8px 12px rgba(35,55,120,.18));
+  animation:floatPop 4s ease-in-out infinite;
+}
+.pop-a{left:5%;top:16%}.pop-b{right:7%;top:22%;animation-delay:1s}
+.pop-c{left:8%;bottom:13%;animation-delay:2s}.pop-d{right:5%;bottom:16%;animation-delay:1.5s}
+@keyframes floatPop{
+  0%,100%{transform:translateY(0) rotate(-5deg) scale(1)}
+  50%{transform:translateY(-22px) rotate(8deg) scale(1.12)}
+}
+.try-note{
+  position:relative;z-index:2;
+  max-width:760px;
+  margin:38px auto 0;
+  background:#fff;
+  color:#34508e;
+  border-radius:20px;
+  padding:16px 22px;
+  text-align:center;
+  box-shadow:0 14px 35px rgba(35,65,140,.12);
+}
+@media(max-width:850px){
+  .flash{height:390px}
+  .real-mobile-photo{height:230px}
+}
+</style>
+'''
+
+# Insert override styles before closing head.
+html = html.replace("</head>", extra_css + "\n</head>")
+
+out = Path("/mnt/data/Dunia_Mobail_Halaman_Utama_Ceria_Cuba_Teka.html")
+out.write_text(html, encoding="utf-8")
+print(out)
 
